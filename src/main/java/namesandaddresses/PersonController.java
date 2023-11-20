@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -20,8 +21,17 @@ public class PersonController {
     private EntityManager entityManager;
 
     @GetMapping("/")
-    public String list(Model model) {
+    public String list(HttpSession session, Model model) {
+        int visits = 0;
+        if (session.getAttribute("count") != null) {
+            visits = (int) session.getAttribute("count");
+        }
+        visits++;
+        session.setAttribute("count", visits);
+
         model.addAttribute("persons", this.personRepository.findAll());
+        model.addAttribute("visits", visits);
+
         return "index";
     }
 
