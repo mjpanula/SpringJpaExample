@@ -20,23 +20,18 @@ public class PersonController {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @GetMapping("/")
-    public String list(HttpSession session, Model model) {
-        int visits = 0;
-        if (session.getAttribute("count") != null) {
-            visits = (int) session.getAttribute("count");
-        }
-        visits++;
-        session.setAttribute("count", visits);
-
-        model.addAttribute("persons", this.personRepository.findAll());
-        model.addAttribute("visits", visits);
-
-        return "index";
-    }
-
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private CountService countService;
+
+    @GetMapping("/")
+    public String list(Model model) {
+        model.addAttribute("persons", this.personRepository.findAll());
+        model.addAttribute("visits", countService.incrementAndCount());
+        return "index";
+    }
 
     @GetMapping("/sql")
     public String listSql(Model model) {
