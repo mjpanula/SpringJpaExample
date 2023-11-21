@@ -1,7 +1,9 @@
 namesandaddresses\Address.class
 namesandaddresses\PersonService.class
 namesandaddresses\Person.class
+namesandaddresses\DevelopmentSecurityConfiguration.class
 namesandaddresses\NamesAndAddressesApplication.class
+namesandaddresses\SecurityConfiguration.class
 namesandaddresses\PersonController.class
 namesandaddresses\CountService.class
 namesandaddresses\PersonRepository.class
